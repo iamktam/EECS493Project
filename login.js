@@ -1,6 +1,20 @@
 /**
  * Created by zacha on 12/1/2016.
  */
+// Initialize Firebase
+
+function initFirebase() {
+    var config = {
+        apiKey: "AIzaSyB8_aPoUIjc9e7oPw_uiYdPMTlL-uJuNTU",
+        authDomain: "eecs493project.firebaseapp.com",
+        databaseURL: "https://eecs493project.firebaseio.com",
+        storageBucket: "eecs493project.appspot.com",
+        messagingSenderId: "422505116773"
+    };
+
+    firebase.initializeApp(config);
+}
+
 function loadGAuth() {
     gapi.load('auth2', initSigninV2);
 }
@@ -39,3 +53,5 @@ function logout() {
         console.log('sign out error')
     });
 }
+
+initFirebase();
