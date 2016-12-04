@@ -32,7 +32,16 @@ window.onload = loadGAuth();
 
 function onSuccess(curUser) {
     var credential = firebase.auth.GoogleAuthProvider.credential(curUser.getAuthResponse().id_token);
-    firebase.auth().signInWithCredential(credential);
+    firebase.auth().signInWithCredential(credential).catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (errorCode === 'auth/invalid-custom-token') {
+            alert('The token you provided is not valid.');
+        } else {
+            console.error(error);
+        }
+    });
     $('#signInButton').hide();
     $('#signOutButton').show();
 }
