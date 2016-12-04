@@ -9,15 +9,9 @@ function initSigninV2() {
     gapi.auth2.init({
         client_id: "422505116773-olhbmj7h3m9depnfbvstf6q50jrauhli.apps.googleusercontent.com",
         hosted_domain: "umich.edu"
-    }).then(gapi.signin2.render('signInButton', {
-        'scope': 'profile email',
-        'width': 240,
-        'height': 50,
-        'longtitle': true,
-        'theme': 'dark',
-        'onsuccess': onSuccess,
-        'onfailure': onFailure
-    }));
+    }).then(function (GoogleAuth) {
+        GoogleAuth.attachClickHandler('signInButton', {}, onSuccess, onFailure)
+    });
 }
 
 window.onload = loadGAuth();
@@ -25,8 +19,23 @@ window.onload = loadGAuth();
 function onSuccess(curUser) {
     var credential = firebase.auth.GoogleAuthProvider.credential(curUser.getAuthResponse().id_token);
     firebase.auth().signInWithCredential(credential);
+    $('#signInButton').hide();
+    $('#signOutButton').show();
 }
 
 function onFailure() {
     console.log("login failure");
+}
+
+function logout() {
+    firebase.auth().signOut().then(function () {
+        var GoogleAuth = gapi.auth2.getAuthInstance();
+        GoogleAuth.signOut().then(function () {
+            console.log('User signed out.');
+            $('#signOutButton').hide();
+            $('#signInButton').show();
+        });
+    }, function (error) {
+        console.log('sign out error')
+    });
 }
