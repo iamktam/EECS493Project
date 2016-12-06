@@ -1,0 +1,148 @@
+<html lang="en-US">
+<head>
+  <title>Join me!</title>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="js/joinmescript.js"></script>
+  </title>
+</head>
+
+<style>
+
+body{
+  background-color: #4F4F4F
+}
+
+.container{
+  color: #D4FF00
+}
+
+.widget-area {
+background-color: #fff;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+-ms-border-radius: 4px;
+-o-border-radius: 4px;
+border-radius: 4px;
+position: relative;
+width: 100%;
+background-color: #4F4F4F
+}
+.status-upload {
+background: none repeat scroll 0 0 #f5f5f5;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+-ms-border-radius: 4px;
+-o-border-radius: 4px;
+border-radius: 4px;
+float: left;
+width: 100%;
+}
+.status-upload form {
+float: left;
+width: 100%;
+}
+.status-upload form textarea {
+background: none repeat scroll 0 0 #fff;
+border: medium none;
+-webkit-border-radius: 4px 4px 0 0;
+-moz-border-radius: 4px 4px 0 0;
+-ms-border-radius: 4px 4px 0 0;
+-o-border-radius: 4px 4px 0 0;
+border-radius: 4px 4px 0 0;
+color: #777777;
+float: left;
+font-family: Lato;
+font-size: 14px;
+height: 142px;
+letter-spacing: 0.3px;
+padding: 20px;
+width: 100%;
+resize:vertical;
+outline:none;
+border: 1px solid #F2F2F2;
+}
+
+.status-upload form button {
+border: medium none;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+-ms-border-radius: 4px;
+-o-border-radius: 4px;
+border-radius: 4px;
+color: #fff;
+float: right;
+font-family: Lato;
+font-size: 14px;
+letter-spacing: 0.3px;
+margin-right: 9px;
+margin-top: 9px;
+padding: 6px 15px;
+}
+.dropdown > a > span.green:before {
+border-left-color: #2dcb73;
+}
+.status-upload form button > i {
+margin-right: 7px;
+}
+
+</style>
+
+<body ng-app = "JoinMe">
+
+  <nav class = "navbar navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+        <h1>Where am I?</h1>
+      </div>
+    </div>
+  </nav>
+
+  <!-- This container will hold the clickable locations & comments box -->
+  <div class = "container" ng-controller="searchResult">
+    <div>
+      <button type="button" ng-hide='clicked == true' class="btn btn-default" ng-click='clicker($event)'>Show Locations</button>
+      <h4 ng-show='clicked == true'>Locations</h4>
+    </div>
+    <!-- clickable locations -->
+      <div class = "row">
+        <div ng-repeat='building in buildingsList | limitTo:20'>
+        <div class = "col-lg-3 col-md-3 col-sm-3" >
+          <div data-toggle="modal" data-target= '#myModal' style="height:250px;overflow:hidden">
+            <h5>
+              {{building.Name | limitTo:25}}
+            </h5>
+            <div >
+              <img src="https://i.scdn.co/image/30bd799d944e3ce9d10b16cf63a0969d145af97f" style="max-width:100%; max-height:200px">
+            </div>
+          </div>
+        </div> <!-- col-lg-3 col-md-3 col-sm-3 -->
+      </div> <!-- row -->
+    </div>
+    <!-- Comments box -->
+    <div class = "row">
+        <div class = "col-lg-6 col-md-6 col-sm-6">
+          <div class="widget-area no-padding blank">
+	    <div class="status-upload">
+	      <form>
+	        <textarea placeholder="Comments" style= 'color: black' ></textarea>
+	        <button type="submit" class="btn btn-success green"><i class="fa fa-share"></i> Share</button>
+	      </form>
+	    </div><!-- Status Upload  -->
+          </div>
+        </div>        
+      </div>
+    </div> <!-- row -->
+
+  </div>
+
+</body>
+
+</html>
