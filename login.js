@@ -5,11 +5,11 @@
 
 function initFirebase() {
     var config = {
-        apiKey: "AIzaSyB8_aPoUIjc9e7oPw_uiYdPMTlL-uJuNTU",
-        authDomain: "eecs493project.firebaseapp.com",
-        databaseURL: "https://eecs493project.firebaseio.com",
-        storageBucket: "eecs493project.appspot.com",
-        messagingSenderId: "422505116773"
+        apiKey: "AIzaSyAjKAvXi5TOUrAQWmuckPqazaQEP7Yi8rA",
+        authDomain: "studdy-db032.firebaseapp.com",
+        databaseURL: "https://studdy-db032.firebaseio.com",
+        storageBucket: "studdy-db032.appspot.com",
+        messagingSenderId: "190542841899"
     };
 
     firebase.initializeApp(config);
@@ -21,14 +21,12 @@ function loadGAuth() {
 
 function initSigninV2() {
     gapi.auth2.init({
-        client_id: "422505116773-olhbmj7h3m9depnfbvstf6q50jrauhli.apps.googleusercontent.com",
+        client_id: "190542841899-6i4jge116n5ck2o5miur8vn3ifbdp27q.apps.googleusercontent.com",
         hosted_domain: "umich.edu"
     }).then(function (GoogleAuth) {
         GoogleAuth.attachClickHandler('signInButton', {}, onSuccess, onFailure)
     });
 }
-
-window.onload = loadGAuth();
 
 function onSuccess(curUser) {
     var credential = firebase.auth.GoogleAuthProvider.credential(curUser.getAuthResponse().id_token);
@@ -63,4 +61,7 @@ function logout() {
     });
 }
 
-initFirebase();
+window.onload = function () {
+    loadGAuth();
+    initFirebase();
+};
