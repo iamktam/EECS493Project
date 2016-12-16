@@ -1,5 +1,7 @@
-var directionsDisplay = new google.maps.DirectionsRenderer;
-var directionsService = new google.maps.DirectionsService;
+//var directionsDisplay = new google.maps.DirectionsRenderer;
+//var directionsService = new google.maps.DirectionsService;
+
+writeUserData("kktam", "kktam@umich.edu", true, 1, true, "EECS 493", "Fishbowl", "Near CAEN computers", 101.1231, -24.2315, 10, 5);
 
 function newMarker(map, lati, longi, message) {
   var coords = { lat: lati, lng: longi };
