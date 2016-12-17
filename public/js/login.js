@@ -60,7 +60,5 @@ function logout() {
     });
 }
 
-window.onload = function () {
-    loadGAuth();
-    initFirebase();
-};
+loadGAuth();
+initFirebase();

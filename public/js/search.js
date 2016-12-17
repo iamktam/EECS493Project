@@ -24,8 +24,18 @@ app.controller('searchResult',[ '$scope', '$http', function($scope, $http) {
                 $scope.classList = response.data.searchSOCClassesResponse.SearchResult;
                 //Get Class Infos
                 $scope.classInfo = [];
-                //$scope.classInfo1;
-                $scope.getClassInfo(i)
+                //console.log($scope.classList.length);
+                //console.log($scope.classList);
+                if ($scope.classList == null) {
+                    //$scope.classInfo[0] = "No results found.";
+                    alert("No Results Found.");
+                }else if ($scope.classList.length == null) {
+                    console.log("fk");
+                    $scope.getSingleClassInfo();
+                }else{
+                    //$scope.classInfo1;
+                    $scope.getClassInfo(0);
+                }
                 ////1-------------------------------------------------
                 //$http({
                 //    url: "https://api-gw.it.umich.edu/Curriculum/SOC/v1/Terms/" + $scope.term + "/Classes/" + $scope.classList[i].ClassNumber,
@@ -97,8 +107,10 @@ app.controller('searchResult',[ '$scope', '$http', function($scope, $http) {
     }
 
     $scope.getClassInfo = function (i) {
+        var reqURL = "https://api-gw.it.umich.edu/Curriculum/SOC/v1/Terms/" + $scope.term + "/Classes/" + $scope.classList[i].ClassNumber;
+        console.log(reqURL);
         $http({
-            url: "https://api-gw.it.umich.edu/Curriculum/SOC/v1/Terms/" + $scope.term + "/Classes/" + $scope.classList[i].ClassNumber,
+            url: reqURL,
             headers: {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + $scope.token
@@ -108,11 +120,31 @@ app.controller('searchResult',[ '$scope', '$http', function($scope, $http) {
             console.log(response.data);
             $scope.classInfo[i] = response.data.getSOCSectionListByNbrResponse.ClassOffered;
             i++;
-            if (i < 50) {
+            if ((i < 50) || (i < $scope.classList.length)) {
                 $scope.getClassInfo(i);
             }
         });
     }
+
+    $scope.getSingleClassInfo = function () {
+        var reqURL = "https://api-gw.it.umich.edu/Curriculum/SOC/v1/Terms/" + $scope.term + "/Classes/" + $scope.classList.ClassNumber;
+        console.log(reqURL);
+        $http({
+            url: reqURL,
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + $scope.token
+            }
+        })
+        .then(function (response) {
+            console.log(response.data);
+            $scope.classInfo[0] = response.data.getSOCSectionListByNbrResponse.ClassOffered;
+            
+        });
+    }
+
+
+
     $scope.selectedCourse = "None";
     $scope.courseNum = "";
     $scope.selectCourse = function(x){
@@ -123,6 +155,7 @@ app.controller('searchResult',[ '$scope', '$http', function($scope, $http) {
 
     $scope.join = function (x) {
         writeUserData("testGuy", false, null, $scope.courseNum);
+        console.log("Data (" + $scope.courseNum + ") written to DB.");
     }
 }]);
 
