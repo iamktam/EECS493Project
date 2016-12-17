@@ -12,7 +12,6 @@ function initFirebase() {
         messagingSenderId: "190542841899"
     };
 
-    firebase.initializeApp(config);
 }
 
 function loadGAuth() {

@@ -66,9 +66,6 @@ html, body {
   width: 390px;
   overflow: auto;
 }
-#map {
-  margin-right: 400px;
-}
 #floating-panel {
   background: #fff;
   padding: 5px;
