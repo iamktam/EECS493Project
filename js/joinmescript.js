@@ -1,6 +1,6 @@
 var app = angular.module('JoinMe', []);
 var CONSUMER_KEY_SECRET = 'VVVnaklfRHlkc2JRdkE0TWNIUkp0dkNhZWhvYTpFczNOM05qZkNGU2hZSXBNTG5OMGtOYk5PMFFh';
-var ACCESS_TOKEN = '5af9aa48f47f1cc95149c57d87c1e4';
+var ACCESS_TOKEN = 'c933b2f342a41f349e92b5c1fccf86fe';
 var user_long;
 var user_lat;
 
@@ -64,8 +64,7 @@ app.controller('shareBtn', [ '$scope', '$http', function($scope, $http)
   $scope.clicker2 = function()
   {
     console.log("Ayy clicked");
-    var uniqName;
-    var email;
+    var uniqName = "kkuang";
     var isGL = true;
     var groupId;
     var approvalReq = true;
@@ -78,8 +77,8 @@ app.controller('shareBtn', [ '$scope', '$http', function($scope, $http)
     var slotsFilled = 0;
     console.log(description);
     console.log(maxSlots);
-    groupId = writeGroupData($('#groupName'.concat($scope.building.ID)).val(), description, maxSlots);
+    groupId = writeGroupData($('#groupName'.concat($scope.building.ID)).val(), description, maxSlots, uniqName, user_long, user_lat);
 
-    writeUserData("kkuang", "kkuang@umich.edu", isGL, groupId, approvalReq, "EECS 493", location, description, user_long, user_lat, maxSlots, slotsFilled);
+    writeUserData("kkuang", isGL, groupId, approvalReq, "EECS 493");
   }
 }])
