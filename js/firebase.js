@@ -8,11 +8,10 @@ messagingSenderId: "190542841899"
 };
 firebase.initializeApp(config);
 
-function writeUserData(uniqName, isGL, groupId, approvalReq, classNum) {
+function writeUserData(uniqName, isGL, groupId, classNum) {
   firebase.database().ref('Users/' + uniqName).set({
    	isGroupLeader : isGL,
    	groupId : groupId,
-   	approval : approvalReq,
    	classNum: classNum
   });
 }

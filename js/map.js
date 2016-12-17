@@ -6,7 +6,7 @@ var locations = {};
 function newMarker(map, lati, longi, message) {
   var coords = { lat: lati, lng: longi };
 
-  var button = '<button type="button">Take me here!</button>';
+  var button = '<br><button type="button">Join group!</button>';
 
   message = message + button;
 
@@ -21,15 +21,6 @@ function newMarker(map, lati, longi, message) {
     infowindow.open(map, marker);
   });
 
-  var onChangeHandler = function() {
-    calculateAndDisplayRoute(directionsService, directionsDisplay);
-  };
-}
-
-function updateUsers(users) {
-  locations = users;
-  console.log(locations);
-
 }
 
 function initMap() {
@@ -39,10 +30,6 @@ function initMap() {
   });
   var infoWindow = new google.maps.InfoWindow({map: map});
 
-  var users = firebase.database().ref('Users/').orderByChild('isGroupLeader').equalTo(true);
-  users.on('value', function(snapshot) {
-    updateUsers(snapshot.val());
-  });
   // Try HTML5 geolocation.
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -61,28 +48,7 @@ function initMap() {
     // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
   }
-
-  map.setMyLocationEnabled(true);
-  var msg = 'test';
-  newMarker(map, 42.277543,-83.739061, msg);
 }
-
-function calculateAndDisplayRoute(directionsService, directionsDisplay, end) {
-  var start = currPos;
-  var end = document.getElementById('end').value;
-  directionsService.route({
-    origin: start,
-    destination: end,
-    travelMode: 'WALKING'
-  }, function(response, status) {
-    if (status === 'OK') {
-      directionsDisplay.setDirections(response);
-    } else {
-      window.alert('Directions request failed due to ' + status);
-    }
-  });
-}
-
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
@@ -94,4 +60,19 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 var app = angular.module('map', []);
 
 app.controller('sidebar',['$scope', '$http', function($scope, $http) {
+
+  $scope.groups = {};
+
+  var groups = firebase.database().ref('Groups').once('value').then(function(snapshot) {
+    $scope.groups = snapshot.val();
+    $scope.$digest();
+    console.log($scope.groups);
+  });
+
+  $scope.$watch('groups', function() {
+    console.log($scope.groups.length);
+    for (i = 0; i < $scope.groups.length; i++) { 
+      console.log($scope.groups[i]);
+    }
+  });
 }]);
