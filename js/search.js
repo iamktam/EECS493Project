@@ -114,13 +114,15 @@ app.controller('searchResult',[ '$scope', '$http', function($scope, $http) {
         });
     }
     $scope.selectedCourse = "None";
+    $scope.courseNum = "";
     $scope.selectCourse = function(x){
         console.log("Selected course = " + x.SubjectCode + " " + x.CatalogNumber + ": " + x.CourseDescr);
         $scope.selectedCourse = x.SubjectCode + " " + x.CatalogNumber + ": " + x.CourseDescr;
+        $scope.courseNum = x.SubjectCode + x.CatalogNumber;
     }
 
     $scope.join = function (x) {
-
+        writeUserData("testGuy", false, null, $scope.courseNum);
     }
 }]);
 
