@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <title> Course Search</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="js/search.js"></script>
+  </title>
+</head>
+    
+<!-- CSS -->
+<link rel="stylesheet" type="text/css" href="css/searchStyle.css">
+
+<body ng-app = "493Search">
+<div class = "container" ng-controller="searchResult">
+  <div class = "search" id ="termSearch">
+      Your Term: W16
+  </div>
+  <div class = "search" id="classSearch" >
+      Your Class:
+      <input type="text" ng-keyup="myFunc($event)" ng-model="searchInput" class="searchBar">
+  </div>
+  <div class = "searchResults">
+      <!--<div>{{classList[0]}}</div>
+      <div>{{classInfo1}}</div>
+      <div>Search Result 3</div>
+      <div>Search Result 4</div>
+      <div>Search Result 5</div>-->
+      <div ng-repeat="x in classInfo" >
+          <button class="courseOption" ng-click="selectCourse(x)">{{x.SubjectCode + " " + x.CatalogNumber + ": " + x.CourseDescr}}</button>
+      </div>
+
+  </div>
+    <div>Selected Course: {{selectedCourse}}</div>
+  <button type="button" class="joinButton" id="joinOthersButton" ng-click="join(x)">Join Others</button>
+  <button type="button" class="joinButton" id="joinMeButton" ng-click="join(x)">Join Me</button>
+</div> <!-- end of container --> 
+</body>
+</html>
