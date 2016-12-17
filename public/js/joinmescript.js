@@ -1,6 +1,6 @@
 var app = angular.module('JoinMe', []);
-var CONSUMER_KEY_SECRET = 'VVVnaklfRHlkc2JRdkE0TWNIUkp0dkNhZWhvYTpFczNOM05qZkNGU2hZSXBNTG5OMGtOYk5PMFFh';
-var ACCESS_TOKEN = 'c933b2f342a41f349e92b5c1fccf86fe';
+var CONSUMER_KEY_SECRET = 'obsWMENxBVxcq7clVfZQPEn79DIa';
+var ACCESS_TOKEN = 'cedc184cde7922fd626534d1887148';
 var user_long;
 var user_lat;
 
@@ -28,7 +28,7 @@ app.controller('searchResult',[ '$scope', '$http', function($scope, $http)
     $scope.clicked = true;
     console.log(user_long);
     console.log(user_lat);
-    /*$http({
+      $http({
       url: 'https://api-km.it.umich.edu/token',
       method: 'POST',
       data: {'grant_type' : 'client_credentials',
@@ -44,7 +44,7 @@ app.controller('searchResult',[ '$scope', '$http', function($scope, $http)
       },function errorCallback(response){
         console.log("F");
         console.log(response);
-      });*/
+      });
     $http({
       url: (('https://api-gw.it.umich.edu/Facilities/Buildings/v1/Buildings/Nearby?Latitude='.concat(user_lat)).concat('&Longitude=')).concat(user_long),
       method: 'GET',
