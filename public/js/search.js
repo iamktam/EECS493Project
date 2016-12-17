@@ -1,4 +1,4 @@
-var app = angular.module('493Search', []);
+var app = angular.module('493Search', ["firebase"]);
 
 app.controller('searchResult',[ '$scope', '$http', function($scope, $http) {
     $scope.classesFound = 0;

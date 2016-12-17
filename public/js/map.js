@@ -57,7 +57,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
                         'Error: Your browser doesn\'t support geolocation.');
 }
 
-var app = angular.module('map', []);
+var app = angular.module('map', ["firebase"]);
 
 app.controller('sidebar',['$scope', '$http', function($scope, $http) {
 
