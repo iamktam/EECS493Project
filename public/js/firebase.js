@@ -1,18 +1,18 @@
 // Initialize Firebase
 var config = {
-apiKey: "AIzaSyAjKAvXi5TOUrAQWmuckPqazaQEP7Yi8rA",
-authDomain: "studdy-db032.firebaseapp.com",
-databaseURL: "https://studdy-db032.firebaseio.com",
-storageBucket: "studdy-db032.appspot.com",
-messagingSenderId: "190542841899"
+  apiKey: "AIzaSyAjKAvXi5TOUrAQWmuckPqazaQEP7Yi8rA",
+  authDomain: "studdy-db032.firebaseapp.com",
+  databaseURL: "https://studdy-db032.firebaseio.com",
+  storageBucket: "studdy-db032.appspot.com",
+  messagingSenderId: "190542841899"
 };
+
 firebase.initializeApp(config);
 
-function writeUserData(uniqName, isGL, groupId, approvalReq, classNum) {
+function writeUserData(uniqName, isGL, groupId, classNum) {
   firebase.database().ref('Users/' + uniqName).set({
    	isGroupLeader : isGL,
    	groupId : groupId,
-   	approval : approvalReq,
    	classNum: classNum
   });
 }
