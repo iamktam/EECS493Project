@@ -1,7 +1,5 @@
-//var directionsDisplay = new google.maps.DirectionsRenderer;
-//var directionsService = new google.maps.DirectionsService;
-
 var locations = {};
+var map;
 
 function newMarker(map, lati, longi, message) {
   var coords = { lat: lati, lng: longi };
@@ -24,7 +22,7 @@ function newMarker(map, lati, longi, message) {
 }
 
 function initMap() {
-  var map = new google.maps.Map(document.getElementById('map'), {
+  map = new google.maps.Map(document.getElementById('map'), {
     center: {lat : 42.277031, lng: -83.7384387},
     zoom: 17
   });
@@ -71,8 +69,9 @@ app.controller('sidebar',['$scope', '$http', function($scope, $http) {
 
   $scope.$watch('groups', function() {
     console.log($scope.groups.length);
-    for (i = 0; i < $scope.groups.length; i++) { 
-      console.log($scope.groups[i]);
+    for (var group in $scope.groups) {
+      console.log($scope.groups[group]);
+      newMarker(map, $scope.groups[group].Latitude, $scope.groups[group].Longitude, $scope.groups[group].Description)
     }
   });
 }]);
