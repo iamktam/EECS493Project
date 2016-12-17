@@ -6,7 +6,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
+    <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+    <script src="js/firebase.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZAYs5zKz3t8eC4LtFCXz2JRmG8Ex5nBI&libraries=places"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
@@ -87,15 +89,75 @@ margin-top: 9px;
 padding: 6px 15px;
 }
 .dropdown > a > span.green:before {
-border-left-color: #2dcb73;
+  border-left-color: #2dcb73;
 }
 .status-upload form button > i {
-margin-right: 7px;
+  margin-right: 7px;
 }
+
+.modal-header{
+  background-color: #222;
+}
+
+.modal-body{
+  background-color: #4F4F4F;
+}
+
+.groupForm{
+  padding-bottom: 20px;
+}
+
+.slotsForm{
+  padding-bottom: 20px;
+}
+
+/* Dropdown Button */
+/*.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}*/
+
+/* Dropdown button on hover & focus */
+/*.dropbtn:hover, .dropbtn:focus {
+    background-color: #3e8e41;
+}*/
+
+/* The container <div> - needed to position the dropdown content */
+/*.dropdown {
+    position: relative;
+    display: inline-block;
+}*/
+
+/* Dropdown Content (Hidden by Default) */
+/*.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}*/
+
+/* Links inside the dropdown */
+/*.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}*/
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+/*.show {display:block;}*/
 
 </style>
 
-<body ng-app = "JoinMe">
+<body ng-app = "JoinMe" ng-init="loadData()">
 
   <nav class = "navbar navbar-inverse">
     <div class="container">
@@ -113,9 +175,9 @@ margin-right: 7px;
     </div>
     <!-- clickable locations -->
       <div class = "row">
-        <div ng-repeat='building in buildingsList | limitTo:20'>
+        <div ng-repeat='building in buildingsList | limitTo:16'>
         <div class = "col-lg-3 col-md-3 col-sm-3" >
-          <div data-toggle="modal" data-target= '#myModal' style="height:250px;overflow:hidden">
+          <div data-toggle="modal" data-target= '#{{building.ID}}' style="height:250px;overflow:hidden">
             <h5>
               {{building.Name | limitTo:25}}
             </h5>
@@ -123,24 +185,65 @@ margin-right: 7px;
               <img src="https://i.scdn.co/image/30bd799d944e3ce9d10b16cf63a0969d145af97f" style="max-width:100%; max-height:200px">
             </div>
           </div>
+
+        <div id="{{building.ID}}" class="modal fade" role="dialog">
+        
+          <div class="modal-dialog">
+            <div class ="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                  &times;
+                </button>
+                <h4 id="selectedBuildingName" class="modal-title">
+                  {{building.Name}}
+                </h4>
+              </div> <!-- modal-header-->
+              <div class="modal-body">
+
+
+
+
+                <!-- Comments box -->
+                  <div class = "row">
+                    <div class = "col-lg-7 col-md-7 col-sm-7">
+                      <div class="groupForm">
+                        Studdy Group Name:
+                        <input id='groupName{{building.ID}}' type="text" style='color: black'>
+                      </div>
+                    </div>
+                    <div class = "col-lg-5 col-md-5 col-sm-5">
+                      <div class="slotsForm">
+                        Slots:
+                        <input id='numSlots{{building.ID}}' type="text" style='color: black'>
+                      </div>
+                    </div>
+                    <div class = "col-lg-12 col-md-12 col-sm-12">
+                      <div class="widget-area no-padding blank">
+                        <div class="status-upload">
+                          <form>
+                            <textarea id="description{{building.ID}}" placeholder="Room number, identifiers such as clothes, backpack color" style= 'color: black' ></textarea>
+                            <button type="submit" ng-controller="shareBtn" class="btn btn-success green" ng-click='clicker2($event)'><i class="fa fa-share"></i> Share</button>
+                          </form>
+                        </div><!-- Status Upload  -->
+                      </div>
+
+                    </div>        
+                  </div>
+              </div> <!-- row -->
+
+
+
+
+
+              </div>
+            </div> <!-- modal-content -->
+
+        </div> <!--modal-dialog -->
+
+
         </div> <!-- col-lg-3 col-md-3 col-sm-3 -->
       </div> <!-- row -->
     </div>
-    <!-- Comments box -->
-    <div class = "row">
-        <div class = "col-lg-6 col-md-6 col-sm-6">
-          <div class="widget-area no-padding blank">
-	    <div class="status-upload">
-	      <form>
-	        <textarea placeholder="Comments" style= 'color: black' ></textarea>
-	        <button type="submit" class="btn btn-success green"><i class="fa fa-share"></i> Share</button>
-	      </form>
-	    </div><!-- Status Upload  -->
-          </div>
-        </div>        
-      </div>
-    </div> <!-- row -->
-
   </div>
 
 </body>

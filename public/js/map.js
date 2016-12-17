@@ -1,7 +1,5 @@
-//var directionsDisplay = new google.maps.DirectionsRenderer;
-//var directionsService = new google.maps.DirectionsService;
-
-var locations = {};
+var directionsDisplay = new google.maps.DirectionsRenderer;
+var directionsService = new google.maps.DirectionsService;
 
 function newMarker(map, lati, longi, message) {
   var coords = { lat: lati, lng: longi };
@@ -26,23 +24,12 @@ function newMarker(map, lati, longi, message) {
   };
 }
 
-function updateUsers(users) {
-  locations = users;
-  console.log(locations);
-
-}
-
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat : 42.277031, lng: -83.7384387},
     zoom: 17
   });
   var infoWindow = new google.maps.InfoWindow({map: map});
-
-  var users = firebase.database().ref('Users/').orderByChild('isGroupLeader').equalTo(true);
-  users.on('value', function(snapshot) {
-    updateUsers(snapshot.val());
-  });
   // Try HTML5 geolocation.
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -61,7 +48,6 @@ function initMap() {
     // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
   }
-
   map.setMyLocationEnabled(true);
   var msg = 'test';
   newMarker(map, 42.277543,-83.739061, msg);
