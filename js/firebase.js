@@ -23,3 +23,26 @@ function writeUserData(uniqName, email, isGL, groupId, approvalReq, classNum, lo
    	slotsFilled : slotsFilled
   });
 }
+
+function writeGroupData(groupName, description, slots)
+{
+  var groupRef = firebase.database().ref('Groups/');
+  var uniqueGroupID = groupRef.push();
+  uniqueGroupID.set({
+    GroupName: groupName,
+    Description: description,
+    MaxSlots: slots,
+    SlotsFilled: 0
+  })
+  var key = uniqueGroupID.key;
+  return key;
+}
+
+//Want to append users to group
+/*function appendGroup(uniqName, groupName)
+{
+  var groupRef = firebase.database().ref('Groups/' + groupName + '/Users');
+  groupRef.push({
+    Uniqname: uniqName
+  })
+}*/
