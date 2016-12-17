@@ -4,17 +4,6 @@
 // Initialize Firebase
 
 function initFirebase() {
-<<<<<<< HEAD
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyAjKAvXi5TOUrAQWmuckPqazaQEP7Yi8rA",
-    authDomain: "studdy-db032.firebaseapp.com",
-    databaseURL: "https://studdy-db032.firebaseio.com",
-    storageBucket: "studdy-db032.appspot.com",
-    messagingSenderId: "190542841899"
-  };
-  firebase.initializeApp(config);
-=======
     var config = {
         apiKey: "AIzaSyAjKAvXi5TOUrAQWmuckPqazaQEP7Yi8rA",
         authDomain: "studdy-db032.firebaseapp.com",
@@ -22,7 +11,6 @@ function initFirebase() {
         storageBucket: "studdy-db032.appspot.com",
         messagingSenderId: "190542841899"
     };
->>>>>>> b01fe83ba80bc50cd0a641b9a99e8c643631e30f
 
 }
 
