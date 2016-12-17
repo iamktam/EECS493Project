@@ -11,7 +11,7 @@ function initFirebase() {
         storageBucket: "studdy-db032.appspot.com",
         messagingSenderId: "190542841899"
     };
-
+    firebase.initializeApp(config);
 }
 
 function loadGAuth() {
