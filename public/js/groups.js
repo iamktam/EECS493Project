@@ -1,11 +1,14 @@
 //var uniqName = getCookie("uniqname");
 //console.log(uniqName);
-var uniqName = "kkuang";
+var uniqName = getUniquename();
+
+//uniqName = uniqName.substring(0, uniqName.indexOf("@"));
 var grpID;
 var grpName;
 var count = 1;
 var maxSlots;
 var interval = null;
+var location;
 
   //Retrieve the group id given a uniqName from cookies
 firebase.database().ref('Users/' + uniqName).once('value').then(function(snapshot){
@@ -15,7 +18,10 @@ firebase.database().ref('Users/' + uniqName).once('value').then(function(snapsho
   firebase.database().ref('Groups/' + grpID).once('value').then(function(snapshot){
     grpName = snapshot.val().GroupName;
     maxSlots = snapshot.val().MaxSlots;
+    location = snapshot.val().Located;
+
     $('#grpName').append(grpName);
+    $('#locInput').append(location);
     $('#maxs').append(maxSlots);
     $('.memsList').append('<h3>' + uniqName + '</h3>');
   })
