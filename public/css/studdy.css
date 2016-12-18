@@ -18,7 +18,6 @@ html, body {
   left: 0;
   color: #D4FF00;
   background-color: #4F4F4F;
-  padding-left: 25px;
   overflow-y:scroll;
 }
 
@@ -174,10 +173,16 @@ margin: 20px;
 }
 
 .groupContainer {
-  padding-top: 20px;
+  padding-top: 10px;
+  padding-left: 25px;
+  padding-bottom: 10px;
 }
 
 .groupContainer:hover {
   cursor: pointer;
-  background-color: white;
+  background-color: #A3BFA8;
+}
+
+#sidebarHeader {
+  padding-left: 25px;
 }

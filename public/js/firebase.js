@@ -59,6 +59,10 @@ function addGroupUser(id, user) {
       alert("Group is full. Please try another group.");
       return;
     }
+    firebase.database().ref('Users/' + user).update({
+      groupId : id
+    });
+
     var slots = group.SlotsFilled+1;
     curUsers.push(user);
     console.log(curUsers);
@@ -66,13 +70,9 @@ function addGroupUser(id, user) {
       Users: curUsers,
       SlotsFilled: slots
     }).then(function() {
-      window.location = "/page.html";
+      location.href="https://studdy-db032.firebaseapp.com/groups.html";
     });
   });
-}
-
-function updateGroupUsers(id, users) {
-
 }
 
 //Want to append users to group
