@@ -119,8 +119,11 @@ app.controller('searchResult',[ '$scope', '$http', function($scope, $http) {
         })
         .then(function (response) {
             console.log(response.data);
+if ((i>0)&&($scope.classInfo[i-1].CourseDescr != response.data.getSOCSectionListByNbrResponse.ClassOffered.CourseDescr)){
             $scope.classInfo[i] = response.data.getSOCSectionListByNbrResponse.ClassOffered;
+
             i++;
+}
             if ((i < 50) || (i < $scope.classList.length)) {
                 $scope.getClassInfo(i);
             }
@@ -154,9 +157,13 @@ app.controller('searchResult',[ '$scope', '$http', function($scope, $http) {
         $scope.courseNum = x.SubjectCode + x.CatalogNumber;
     };
 
-    $scope.join = function (x) {
+    $scope.join = function (joinMe) {
         writeUserData(uniqname, false, null, $scope.courseNum);
         console.log("Data (" + $scope.courseNum + ") written to DB.");
+if (joinMe){
+window.location = "#/joinme.html";
+}else {
+window.location = "#/map.html";
+}
     }
 }]);
-
