@@ -1,3 +1,5 @@
+console.log(getCookie("uniqname"));
+
 var app = angular.module('493Search', []);
 
 app.controller('searchResult',[ '$scope', '$http', function($scope, $http) {

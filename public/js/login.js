@@ -28,6 +28,13 @@ function onSuccess(curUser) {
             console.error(error);
         }
     });
+    var uniqname = firebase.auth().currentUser.email;
+    uniqname = uniqname.substr(0, uniqname.indexOf('@')); 
+    console.log(uniqname);
+    setCookie("uniqname", uniqname);
+
+    var ret = getCookie("uniqname");
+    console.log(ret);
     $('#signInButton').hide();
     $('#signOutButton').show();
     $('#start').show();
