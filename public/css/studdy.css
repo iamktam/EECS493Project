@@ -6,7 +6,7 @@
 html, body {
   height: 100%;
   margin: 0;
-  padding: 0;
+  font-family: Tahoma;
 }
 
 #sidebar {
@@ -19,6 +19,14 @@ html, body {
   color: #D4FF00;
   background-color: #4F4F4F;
   padding-left: 25px;
+  overflow-y:scroll;
+}
+
+#sidebar::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  border-radius: 10px;
+  background-color: #F5F5F5;
 }
 
 @media screen and (max-height: 450px) {
@@ -86,3 +94,90 @@ html, body {
   }
 }
 
+.sessionButton {
+    display: inline-block;
+    background: white;
+    color: #444;
+    width: 190px;
+    border-radius: 5px;
+    border: thin solid #888;
+    box-shadow: 1px 1px 1px grey;
+    white-space: nowrap;
+}
+
+.sessionButton:hover {
+    cursor: pointer;
+}
+
+span.label {
+    font-family: serif;
+    font-weight: normal;
+}
+
+span.icon {
+    background: url('mIcon.ico') transparent 5px 50% no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+    width: 42px;
+    height: 42px;
+}
+
+span.buttonText {
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 42px;
+    padding-right: 42px;
+    font-size: 14px;
+    font-weight: bold;
+    /* Use the Roboto font that is loaded in the <head> */
+    font-family: 'Roboto', sans-serif;
+}
+
+#signOutButton {
+    display: none;
+}
+
+#start {
+  display: none;
+}
+
+/* https://developers.google.com/identity/sign-in/web/build-button */
+
+.search{
+font-size: 120%;
+margin: 20px;
+}
+.searchBar{
+    background-color: transparent;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-style: solid;
+  border-color: #d4ff00;
+}
+.searchResults{
+    background-color: grey;
+  padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+}
+.joinButton{
+    background-color: grey;
+  border: 0px;
+margin: 20px;
+}
+.courseOption{
+    background-color: transparent;
+  border: 0px;
+  
+}
+
+.groupContainer {
+  padding-top: 20px;
+}
+
+.groupContainer:hover {
+  cursor: pointer;
+  background-color: white;
+}

@@ -1,5 +1,6 @@
+var uniqName = getCookie("uniqname");
+console.log(uniqName);
 var app = angular.module('JoinMe', []);
-var CONSUMER_KEY_SECRET = 'VVVnaklfRHlkc2JRdkE0TWNIUkp0dkNhZWhvYTpFczNOM05qZkNGU2hZSXBNTG5OMGtOYk5PMFFh';
 var ACCESS_TOKEN = 'c933b2f342a41f349e92b5c1fccf86fe';
 var user_long;
 var user_lat;
@@ -11,8 +12,8 @@ $(document).ready(function(){
     function success(pos){
       user_lat = pos.coords.latitude;
       user_long = pos.coords.longitude;
-      console.log("Ready");
-
+      $('#loading').hide();
+      $('#showloc').show();
     }
 
     if (navigator.geolocation){
@@ -26,59 +27,58 @@ app.controller('searchResult',[ '$scope', '$http', function($scope, $http)
 {
   $scope.clicker = function(){
     $scope.clicked = true;
-    console.log(user_long);
-    console.log(user_lat);
-    /*$http({
-      url: 'https://api-km.it.umich.edu/token',
-      method: 'POST',
-      data: {'grant_type' : 'client_credentials',
-             'scope' : 'PRODUCTION'},
-      headers: {
-        'Authorization': (('Basic ').concat(CONSUMER_KEY_SECRET)),
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    }).then(function successCallback(response){
-        //$scope.buildingsList = response.data.Buildings.Building;
-        console.log('fk');
-        console.log(response);
-      },function errorCallback(response){
-        console.log("F");
-        console.log(response);
-      });*/
+
     $http({
       url: (('https://api-gw.it.umich.edu/Facilities/Buildings/v1/Buildings/Nearby?Latitude='.concat(user_lat)).concat('&Longitude=')).concat(user_long),
       method: 'GET',
       headers: {
-        'Authorization': (('Bearer ').concat(ACCESS_TOKEN))
+        'Authorization': (('Bearer ').concat(ACCESS_TOKEN)),
+        'Access-Control-Allow-Origin': 'https://studdy-db032.firebaseapp.com'
       }
     }).then(function successCallback(response){
         $scope.buildingsList = response.data.Buildings.Building;
       });
-
-
   }
+
 }]);
+
+app.controller('pop', ['$scope', '$http', function($scope, $http)
+{
+  $scope.populate = function(){
+
+    $http({
+      url: 'https://api-gw.it.umich.edu/Facilities/Buildings/v1/Buildings/'.concat($scope.building.ID),
+      method: 'GET',
+      headers: {
+        'Authorization': (('Bearer ').concat(ACCESS_TOKEN)),
+        'Access-Control-Allow-Origin': 'https://studdy-db032.firebaseapp.com'
+      }
+    }).then(function successCallback(response){
+        var lat = response.data.Buildings.Building.Latitude;
+        var lon = response.data.Buildings.Building.Longitude;
+        $scope.building.LAT = lat;
+        $scope.building.LON = lon;
+        $scope.pic = 'https://maps.googleapis.com/maps/api/streetview?size=150x150&location='.concat(lat).concat(',').concat(lon).concat('&key=AIzaSyAjKAvXi5TOUrAQWmuckPqazaQEP7Yi8rA')
+      });
+  }
+}])
 
 app.controller('shareBtn', [ '$scope', '$http', function($scope, $http)
 {
   $scope.clicker2 = function()
   {
-    console.log("Ayy clicked");
-    var uniqName = "kkuang";
     var isGL = true;
+    var groupN = $('#groupName'.concat($scope.building.ID)).val();
     var groupId;
-    var approvalReq = true;
-    var classNum;
     var location = $scope.building.Name;
     var description = $('#description'.concat($scope.building.ID)).val();
-    var longitude = user_long;
-    var latitude = user_lat;
-    var maxSlots = $('#numSlots'.concat($scope.building.ID)).val();
-    var slotsFilled = 0;
-    console.log(description);
-    console.log(maxSlots);
-    groupId = writeGroupData($('#groupName'.concat($scope.building.ID)).val(), description, maxSlots, uniqName, user_long, user_lat);
+    var longitude = parseFloat($scope.building.LON);
+    var latitude = parseFloat($scope.building.LAT);
+    var maxSlots = parseInt($('#numSlots'.concat($scope.building.ID)).val());
 
-    writeUserData("kkuang", isGL, groupId, approvalReq, "EECS 493");
+    groupId = writeGroupData(groupN, description, maxSlots, uniqName, longitude, latitude, location);
+    updateJoinMeUserData(uniqName, isGL, groupId);
+    window.location.href = "https://studdy-db032.firebaseapp.com/groups.html";
+
   }
 }])

@@ -1,24 +1,32 @@
 var locations = {};
 var map;
+var markerList = {};
+var infoWindows = [];
 
-function newMarker(map, lati, longi, message) {
+function newMarker(map, lati, longi, message, id) {
   var coords = { lat: lati, lng: longi };
 
   var button = '<br><button type="button">Join group!</button>';
 
   message = message + button;
 
-  var infowindow = new google.maps.InfoWindow({
-    content: message
-  });
   var marker = new google.maps.Marker({
     position: coords,
     map: map
   });
-  marker.addListener('click', function() {
+
+  var infowindow = new google.maps.InfoWindow({
+    content: message
+  });
+  infoWindows.push(infowindow); 
+
+  $(marker).click(function() {
+    for (var i=0;i<infoWindows.length;i++) {
+       infoWindows[i].close();
+    }
     infowindow.open(map, marker);
   });
-
+  markerList[id] = marker;
 }
 
 function initMap() {
@@ -70,8 +78,19 @@ app.controller('sidebar',['$scope', '$http', function($scope, $http) {
   $scope.$watch('groups', function() {
     console.log($scope.groups.length);
     for (var group in $scope.groups) {
-      console.log($scope.groups[group]);
-      newMarker(map, $scope.groups[group].Latitude, $scope.groups[group].Longitude, $scope.groups[group].Description)
+      newMarker(map, $scope.groups[group].Latitude, $scope.groups[group].Longitude, $scope.groups[group].Description, group)
     }
   });
+
+  $scope.focusMarker = function(group) {
+    markerPos = {
+      lat: group.Latitude,
+      lng: group.Longitude
+    };
+    map.setCenter(markerPos);
+    var key = _.findKey($scope.groups, group);
+
+    $(markerList[key]).trigger("click");
+
+  }
 }]);

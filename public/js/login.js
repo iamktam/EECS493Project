@@ -3,17 +3,6 @@
  */
 // Initialize Firebase
 
-function initFirebase() {
-    var config = {
-        apiKey: "AIzaSyAjKAvXi5TOUrAQWmuckPqazaQEP7Yi8rA",
-        authDomain: "studdy-db032.firebaseapp.com",
-        databaseURL: "https://studdy-db032.firebaseio.com",
-        storageBucket: "studdy-db032.appspot.com",
-        messagingSenderId: "190542841899"
-    };
-
-}
-
 function loadGAuth() {
     gapi.load('auth2', initSigninV2);
 }
@@ -39,8 +28,16 @@ function onSuccess(curUser) {
             console.error(error);
         }
     });
+    var uniqname = firebase.auth().currentUser.email;
+    uniqname = uniqname.substr(0, uniqname.indexOf('@')); 
+    console.log(uniqname);
+    setCookie("uniqname", uniqname);
+
+    var ret = getCookie("uniqname");
+    console.log(ret);
     $('#signInButton').hide();
     $('#signOutButton').show();
+    $('#start').show();
 }
 
 function onFailure() {
@@ -54,6 +51,7 @@ function logout() {
             console.log('User signed out.');
             $('#signOutButton').hide();
             $('#signInButton').show();
+            $('#start').hide();
         });
     }, function (error) {
         console.log('sign out error')
@@ -61,4 +59,3 @@ function logout() {
 }
 
 loadGAuth();
-initFirebase();
