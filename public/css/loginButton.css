@@ -1,3 +1,11 @@
+body{
+font-family: Tahoma;
+color: #d4ff00;
+background-color: #4f4f4f;
+text-align: center;
+padding: 20px;
+font-size: 20px;
+}
 .sessionButton {
     display: inline-block;
     background: white;
