@@ -50,8 +50,4 @@ span.buttonText {
     font-family: 'Roboto', sans-serif;
 }
 
-#signOutButton {
-    display: none;
-}
-
 /* https://developers.google.com/identity/sign-in/web/build-button */

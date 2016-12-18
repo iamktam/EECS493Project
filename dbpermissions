@@ -1,0 +1,10 @@
+{
+  "rules": {
+    ".read": "auth != null && auth.token.email.matches(/.*@umich.edu$/)",
+    "Users": {
+      "$uniqName": {
+        ".write": "auth != null && auth.token.email.beginsWith($uniqName + '@umich.edu')"
+      }
+    }
+  }
+}
