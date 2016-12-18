@@ -17,7 +17,11 @@ font-size: 20px;
     box-shadow: 1px 1px 1px grey;
     white-space: nowrap;
 }
-
+.joinButton{
+    background-color: grey;
+    border: 0px;
+margin: 20px;
+}
 .sessionButton:hover {
     cursor: pointer;
 }
