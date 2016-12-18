@@ -19,10 +19,10 @@ firebase.database().ref('Users/' + uniqName).once('value').then(function(snapsho
   firebase.database().ref('Groups/' + grpID).once('value').then(function(snapshot){
     grpName = snapshot.val().GroupName;
     maxSlots = snapshot.val().MaxSlots;
-    location = snapshot.val().Located;
+    //location = snapshot.val().Located;
 
     $('#grpName').append(grpName);
-    $('#locInput').append(location);
+    //$('#locInput').append(location);
     $('#maxs').append(maxSlots);
     $('.memsList').append('<h3>' + uniqName + '</h3>');
     $('#leaveGrp').style.visibility = "visible";
