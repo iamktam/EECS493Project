@@ -26,6 +26,7 @@ function onSuccess(curUser) {
             alert('The token you provided is not valid.');
         } else {
             console.error(error);
+            alert("Log in Failure");
         }
     });
 
@@ -35,7 +36,8 @@ function onSuccess(curUser) {
 }
 
 function onFailure() {
-    console.log("login failure");
+    console.error("Google oauth failed.");
+    alert("Log in Failure");
 }
 
 function logout() {
@@ -48,7 +50,8 @@ function logout() {
             $('#start').hide();
         });
     }, function (error) {
-        console.log('sign out error')
+        console.error(error);
+        alert("Logout Failed");
     });
 }
 
