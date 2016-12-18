@@ -1,3 +1,5 @@
+var uniqName = getCookie("uniqname");
+console.log(uniqName);
 var app = angular.module('JoinMe', []);
 var ACCESS_TOKEN = 'c933b2f342a41f349e92b5c1fccf86fe';
 var user_long;
@@ -10,7 +12,6 @@ $(document).ready(function(){
     function success(pos){
       user_lat = pos.coords.latitude;
       user_long = pos.coords.longitude;
-      console.log("Ready");
       $('#loading').hide();
       $('#showloc').show();
     }
@@ -49,9 +50,8 @@ app.controller('pop', ['$scope', '$http', function($scope, $http)
       url: 'https://api-gw.it.umich.edu/Facilities/Buildings/v1/Buildings/'.concat($scope.building.ID),
       method: 'GET',
       headers: {
-        'Authorization': (('Bearer ').concat(ACCESS_TOKEN))
+        'Authorization': (('Bearer ').concat(ACCESS_TOKEN)),
         'Access-Control-Allow-Origin': 'https://studdy-db032.firebaseapp.com'
-
       }
     }).then(function successCallback(response){
         var lat = response.data.Buildings.Building.Latitude;
@@ -67,7 +67,6 @@ app.controller('shareBtn', [ '$scope', '$http', function($scope, $http)
 {
   $scope.clicker2 = function()
   {
-    var uniqName = "kkuang";
     var isGL = true;
     var groupN = $('#groupName'.concat($scope.building.ID)).val();
     var groupId;
@@ -79,5 +78,7 @@ app.controller('shareBtn', [ '$scope', '$http', function($scope, $http)
 
     groupId = writeGroupData(groupN, description, maxSlots, uniqName, longitude, latitude, location);
     updateJoinMeUserData(uniqName, isGL, groupId);
+    window.location.href = "https://studdy-db032.firebaseapp.com/groups.html";
+
   }
 }])
