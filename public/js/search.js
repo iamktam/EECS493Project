@@ -1,6 +1,4 @@
-var uniqname = getCookie("uniqnam");
-console.log(uniqname);
-
+var uniqName = getUniquename();
 var app = angular.module('493Search', []);
 
 app.controller('searchResult',[ '$scope', '$http', function($scope, $http) {
@@ -12,7 +10,7 @@ app.controller('searchResult',[ '$scope', '$http', function($scope, $http) {
             //console.log("ENTER");
             //db3c4883d09c73dbb6dab71f628ce9f
             $scope.token = "db3c4883d09c73dbb6dab71f628ce9f";
-            $scope.term = "2120"
+            $scope.term = "2120";
             //query = "https://api-gw.it.umich.edu/Curriculum/SOC/v1/Terms/W16/Classes/Search/494?access_token=db3c4883d09c73dbb6dab71f628ce9f";
             //$http.get(query)
             $http({
@@ -107,7 +105,7 @@ app.controller('searchResult',[ '$scope', '$http', function($scope, $http) {
                 
             });
         }
-    }
+    };
 
     $scope.getClassInfo = function (i) {
         var reqURL = "https://api-gw.it.umich.edu/Curriculum/SOC/v1/Terms/" + $scope.term + "/Classes/" + $scope.classList[i].ClassNumber;
@@ -127,7 +125,7 @@ app.controller('searchResult',[ '$scope', '$http', function($scope, $http) {
                 $scope.getClassInfo(i);
             }
         });
-    }
+    };
 
     $scope.getSingleClassInfo = function () {
         var reqURL = "https://api-gw.it.umich.edu/Curriculum/SOC/v1/Terms/" + $scope.term + "/Classes/" + $scope.classList.ClassNumber;
@@ -144,7 +142,7 @@ app.controller('searchResult',[ '$scope', '$http', function($scope, $http) {
             $scope.classInfo[0] = response.data.getSOCSectionListByNbrResponse.ClassOffered;
             
         });
-    }
+    };
 
 
 
@@ -154,7 +152,7 @@ app.controller('searchResult',[ '$scope', '$http', function($scope, $http) {
         console.log("Selected course = " + x.SubjectCode + " " + x.CatalogNumber + ": " + x.CourseDescr);
         $scope.selectedCourse = x.SubjectCode + " " + x.CatalogNumber + ": " + x.CourseDescr;
         $scope.courseNum = x.SubjectCode + x.CatalogNumber;
-    }
+    };
 
     $scope.join = function (x) {
         writeUserData(uniqname, false, null, $scope.courseNum);

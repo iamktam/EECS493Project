@@ -32,7 +32,7 @@ function writeGroupData(groupName, description, slots, uniqName, longitude, lati
     Latitude: latitude,
     Located: location,
     SlotsFilled: 1
-  })
+  });
   var key = uniqueGroupID.key;
   return key;
 }

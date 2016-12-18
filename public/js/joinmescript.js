@@ -1,5 +1,4 @@
-var uniqName = getCookie("uniqname");
-console.log(uniqName);
+var uniqName = getUniquename();
 var app = angular.module('JoinMe', []);
 var ACCESS_TOKEN = 'c933b2f342a41f349e92b5c1fccf86fe';
 var user_long;
@@ -21,7 +20,7 @@ $(document).ready(function(){
     } else {
       console.log("NO GO");
     }
-})
+});
 
 app.controller('searchResult',[ '$scope', '$http', function($scope, $http)
 {
@@ -61,7 +60,7 @@ app.controller('pop', ['$scope', '$http', function($scope, $http)
         $scope.pic = 'https://maps.googleapis.com/maps/api/streetview?size=150x150&location='.concat(lat).concat(',').concat(lon).concat('&key=AIzaSyAjKAvXi5TOUrAQWmuckPqazaQEP7Yi8rA')
       });
   }
-}])
+}]);
 
 app.controller('shareBtn', [ '$scope', '$http', function($scope, $http)
 {
@@ -81,4 +80,4 @@ app.controller('shareBtn', [ '$scope', '$http', function($scope, $http)
     window.location.href = "https://studdy-db032.firebaseapp.com/groups.html";
 
   }
-}])
+}]);
