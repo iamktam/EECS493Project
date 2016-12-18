@@ -119,11 +119,8 @@ app.controller('searchResult',[ '$scope', '$http', function($scope, $http) {
         })
         .then(function (response) {
             console.log(response.data);
-if ((i>0)&&($scope.classInfo[i-1].CourseDescr != response.data.getSOCSectionListByNbrResponse.ClassOffered.CourseDescr)){
             $scope.classInfo[i] = response.data.getSOCSectionListByNbrResponse.ClassOffered;
-
             i++;
-}
             if ((i < 50) || (i < $scope.classList.length)) {
                 $scope.getClassInfo(i);
             }
@@ -157,13 +154,8 @@ if ((i>0)&&($scope.classInfo[i-1].CourseDescr != response.data.getSOCSectionList
         $scope.courseNum = x.SubjectCode + x.CatalogNumber;
     };
 
-    $scope.join = function (joinMe) {
-        writeUserData(uniqname, $scope.courseNum);
+    $scope.join = function (x) {
+        writeUserData(uniqname, false, null, $scope.courseNum);
         console.log("Data (" + $scope.courseNum + ") written to DB.");
-if (joinMe){
-    location.href="https://studdy-db032.firebaseapp.com/joinme.html";
-}else {
-    location.href="https://studdy-db032.firebaseapp.com/maps.html";
-}
     }
 }]);
