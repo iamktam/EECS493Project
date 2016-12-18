@@ -76,6 +76,7 @@ app.controller('shareBtn', [ '$scope', '$http', function($scope, $http)
     var maxSlots = parseInt($('#numSlots'.concat($scope.building.ID)).val());
     firebase.database().ref('Users/' + uniqName).once('value').then(function(snapshot){
       cID = snapshot.val().classNum;
+      console.log(uniqName);
       console.log(cID);
       groupId = writeGroupData(groupN, description, maxSlots, uniqName, longitude, latitude, location, cID);
       updateJoinMeUserData(uniqName, groupId);
