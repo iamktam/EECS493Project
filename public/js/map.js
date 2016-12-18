@@ -6,7 +6,7 @@ var infoWindows = [];
 function newMarker(map, lati, longi, message, id) {
   var coords = { lat: lati, lng: longi };
 
-  var button = '<br><button type="button" onClick="joinGroup(' + id + ')">Join group!</button>';
+  var button = '<br><button type="button" onClick="joinGroup(\'' + id + '\')">Join group!</button>';
 
   message = message + button;
 
@@ -18,6 +18,7 @@ function newMarker(map, lati, longi, message, id) {
   var infowindow = new google.maps.InfoWindow({
     content: message
   });
+
   infoWindows.push(infowindow); 
 
   $(marker).click(function() {
@@ -30,7 +31,7 @@ function newMarker(map, lati, longi, message, id) {
 }
 
 function joinGroup(id) {
-  console.log(id);
+  addGroupUser(id, "kktam");
 }
 
 function initMap() {
@@ -76,11 +77,9 @@ app.controller('sidebar',['$scope', '$http', function($scope, $http) {
   var groups = firebase.database().ref('Groups').once('value').then(function(snapshot) {
     $scope.groups = snapshot.val();
     $scope.$digest();
-    console.log($scope.groups);
   });
 
   $scope.$watch('groups', function() {
-    console.log($scope.groups.length);
     for (var group in $scope.groups) {
       newMarker(map, $scope.groups[group].Latitude, $scope.groups[group].Longitude, $scope.groups[group].Description, group)
     }
