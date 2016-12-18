@@ -6,7 +6,7 @@ var infoWindows = [];
 function newMarker(map, lati, longi, message, id) {
   var coords = { lat: lati, lng: longi };
 
-  var button = '<br><button type="button">Join group!</button>';
+  var button = '<br><button type="button" onClick="joinGroup(' + id + ')">Join group!</button>';
 
   message = message + button;
 
@@ -27,6 +27,10 @@ function newMarker(map, lati, longi, message, id) {
     infowindow.open(map, marker);
   });
   markerList[id] = marker;
+}
+
+function joinGroup(id) {
+  console.log(id);
 }
 
 function initMap() {
