@@ -10,20 +10,20 @@ var config = {
 firebase.initializeApp(config);
 
 //Initializes a user (not for updating)
-function writeUserData(uniqName, isGL, groupId, classNum) {
+function writeUserData(uniqName, groupId, classNum) {
   firebase.database().ref('Users/' + uniqName).set({
-   	isGroupLeader : isGL,
    	groupId : groupId,
    	classNum: classNum
   });
 }
 
 //Initializes a group (not for updating)
-function writeGroupData(groupName, description, slots, uniqName, longitude, latitude, location)
+function writeGroupData(groupName, description, slots, uniqName, longitude, latitude, location, classNum)
 {
   var groupRef = firebase.database().ref('Groups/');
   var uniqueGroupID = groupRef.push();
   uniqueGroupID.set({
+    classNum: classNum,
     GroupName: groupName,
     Description: description,
     MaxSlots: slots,
@@ -38,9 +38,8 @@ function writeGroupData(groupName, description, slots, uniqName, longitude, lati
 }
 
 //Updates users from the JoinMe page. (Sets gL to true, updates groupId)
-function updateJoinMeUserData(uniqName, isGL, groupId) {
+function updateJoinMeUserData(uniqName, groupId) {
   firebase.database().ref('Users/' + uniqName).update({
-    isGroupLeader : isGL,
     groupId : groupId
   });
 }

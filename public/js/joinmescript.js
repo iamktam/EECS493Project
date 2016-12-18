@@ -74,10 +74,12 @@ app.controller('shareBtn', [ '$scope', '$http', function($scope, $http)
     var longitude = parseFloat($scope.building.LON);
     var latitude = parseFloat($scope.building.LAT);
     var maxSlots = parseInt($('#numSlots'.concat($scope.building.ID)).val());
-
-    groupId = writeGroupData(groupN, description, maxSlots, uniqName, longitude, latitude, location);
-    updateJoinMeUserData(uniqName, isGL, groupId);
-    window.location.href = "https://studdy-db032.firebaseapp.com/groups.html";
-
+    firebase.database().ref('Users/' + uniqName).once('value').then(function(snapshot){
+      cID = snapshot.val().classNum;
+      console.log(cID);
+      groupId = writeGroupData(groupN, description, maxSlots, uniqName, longitude, latitude, location, cID);
+      updateJoinMeUserData(uniqName, groupId);
+      window.location.href = "https://studdy-db032.firebaseapp.com/groups.html";
+    })
   }
 }]);
