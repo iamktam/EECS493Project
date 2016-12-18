@@ -1,4 +1,5 @@
-console.log(getCookie("uniqname"));
+var uniqname = getCookie("uniqnam");
+console.log(uniqname);
 
 var app = angular.module('493Search', []);
 
@@ -156,7 +157,7 @@ app.controller('searchResult',[ '$scope', '$http', function($scope, $http) {
     }
 
     $scope.join = function (x) {
-        writeUserData("testGuy", false, null, $scope.courseNum);
+        writeUserData(uniqname, false, null, $scope.courseNum);
         console.log("Data (" + $scope.courseNum + ") written to DB.");
     }
 }]);
