@@ -31,7 +31,8 @@ app.controller('searchResult',[ '$scope', '$http', function($scope, $http)
       url: (('https://api-gw.it.umich.edu/Facilities/Buildings/v1/Buildings/Nearby?Latitude='.concat(user_lat)).concat('&Longitude=')).concat(user_long),
       method: 'GET',
       headers: {
-        'Authorization': (('Bearer ').concat(ACCESS_TOKEN))
+        'Authorization': (('Bearer ').concat(ACCESS_TOKEN)),
+        'Access-Control-Allow-Origin': 'https://studdy-db032.firebaseapp.com'
       }
     }).then(function successCallback(response){
         $scope.buildingsList = response.data.Buildings.Building;
@@ -49,6 +50,8 @@ app.controller('pop', ['$scope', '$http', function($scope, $http)
       method: 'GET',
       headers: {
         'Authorization': (('Bearer ').concat(ACCESS_TOKEN))
+        'Access-Control-Allow-Origin': 'https://studdy-db032.firebaseapp.com'
+
       }
     }).then(function successCallback(response){
         var lat = response.data.Buildings.Building.Latitude;
