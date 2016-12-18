@@ -66,7 +66,7 @@ function addGroupUser(id, user) {
       Users: curUsers,
       SlotsFilled: slots
     }).then(function() {
-      window.location = "#/page.html";
+      window.location = "/page.html";
     });
   });
 }
