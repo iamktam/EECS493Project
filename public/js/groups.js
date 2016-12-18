@@ -7,6 +7,7 @@ var grpID;
 var grpName;
 var count = 1;
 var maxSlots;
+var slotsFilled;
 var interval = null;
 var location;
 
@@ -24,16 +25,13 @@ firebase.database().ref('Users/' + uniqName).once('value').then(function(snapsho
     $('#locInput').append(location);
     $('#maxs').append(maxSlots);
     $('.memsList').append('<h3>' + uniqName + '</h3>');
+    $('#leaveGrp').style.visibility = "visible";
   })
 })
 
 
 $(document).ready(function(){
   setInterval(function(){
-    if (count >= maxSlots)
-    {
-      closeInterval(interval);
-    }
     //Retrieve slots filled, leader from the group id
     firebase.database().ref('Groups/' + grpID).once('value').then(function(snapshot){
       count = (snapshot.val().Users).length;
@@ -49,10 +47,15 @@ $(document).ready(function(){
   })
   }, 5000);
 
-  $('#deleteGrp').click(function(){
-    alert("CLICKED");
-    console.log("CLICKED");
-    firebase.database().ref('Groups/' + grpID).remove();
+  $('#leaveGrp').click(function(){
+    console.log("Leaving Group");
+    firebase.database().ref('Groups/Users/' + uniqName).remove();
+    
+    count = count - 1;
+
+    firebase.database().ref('Groups/' + grpID).update({
+      SlotsFilled : count
+    });
     window.location.href = "https://studdy-db032.firebaseapp.com/search.html";
   });
 })

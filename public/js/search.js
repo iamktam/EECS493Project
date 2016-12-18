@@ -158,7 +158,7 @@ if ((i>0)&&($scope.classInfo[i-1].CourseDescr != response.data.getSOCSectionList
     };
 
     $scope.join = function (joinMe) {
-        writeUserData(uniqname, false, null, $scope.courseNum);
+        writeUserData(uniqname, $scope.courseNum);
         console.log("Data (" + $scope.courseNum + ") written to DB.");
 if (joinMe){
 window.location = "#/joinme.html";
