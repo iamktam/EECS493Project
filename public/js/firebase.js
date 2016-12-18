@@ -45,6 +45,36 @@ function updateJoinMeUserData(uniqName, isGL, groupId) {
   });
 }
 
+function addGroupUser(id, user) {
+  firebase.database().ref('Groups/' + id).once('value').then(function(snapshot) {
+    var group = snapshot.val();
+    var curUsers = group.Users;
+    for (var i = 0; i < curUsers.length; i++) {
+      if (user == curUsers[i]) {
+        alert("User is already in group!");
+        return;
+      }
+    }
+    if (group.SlotsFilled >= group.MaxSlots) {
+      alert("Group is full. Please try another group.");
+      return;
+    }
+    var slots = group.SlotsFilled+1;
+    curUsers.push(user);
+    console.log(curUsers);
+    firebase.database().ref('Groups/' + id).update({
+      Users: curUsers,
+      SlotsFilled: slots
+    }).then(function() {
+      window.location = "#/page.html";
+    });
+  });
+}
+
+function updateGroupUsers(id, users) {
+
+}
+
 //Want to append users to group
 /*function appendGroup(uniqName, groupName)
 {
