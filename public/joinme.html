@@ -136,7 +136,7 @@ padding: 6px 15px;
     </div>
     <!-- clickable locations -->
       <div class = "row">
-        <div ng-repeat='building in buildingsList | limitTo:8'>
+        <div ng-repeat='building in buildingsList | limitTo:24'>
         <div class = "col-lg-3 col-md-3 col-sm-3">
           <div data-toggle="modal" ng-controller='pop' ng-init='populate()' ng-model="pic" data-target= '#{{building.ID}}' style="height:250px;overflow:hidden">
             <h5>
