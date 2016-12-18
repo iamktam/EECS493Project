@@ -31,7 +31,8 @@ function newMarker(map, lati, longi, message, id) {
 }
 
 function joinGroup(id) {
-  addGroupUser(id, "kktam");
+  var uniqname = getUniquename();
+  addGroupUser(id, uniqname);
 }
 
 function initMap() {

@@ -11,7 +11,7 @@ function getUniquename() {
     if (!isUmich()) {
         return false;
     }
-    return email.substring(0, emailAddress.indexOf("@"));
+    return email.substring(0, email.indexOf("@"));
 
 }
 

@@ -161,9 +161,9 @@ if ((i>0)&&($scope.classInfo[i-1].CourseDescr != response.data.getSOCSectionList
         writeUserData(uniqname, $scope.courseNum);
         console.log("Data (" + $scope.courseNum + ") written to DB.");
 if (joinMe){
-window.location = "#/joinme.html";
+    location.href="https://studdy-db032.firebaseapp.com/joinme.html";
 }else {
-window.location = "#/map.html";
+    location.href="https://studdy-db032.firebaseapp.com/maps.html";
 }
     }
 }]);
