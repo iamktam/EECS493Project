@@ -70,9 +70,9 @@ app.controller('shareBtn', [ '$scope', '$http', function($scope, $http)
     var groupId;
     var location = $scope.building.Name;
     var description = $('#description'.concat($scope.building.ID)).val();
-    var longitude = $scope.building.LON;
-    var latitude = $scope.building.LAT;
-    var maxSlots = $('#numSlots'.concat($scope.building.ID)).val();
+    var longitude = parseFloat($scope.building.LON);
+    var latitude = parseFloat($scope.building.LAT);
+    var maxSlots = parseInt($('#numSlots'.concat($scope.building.ID)).val());
 
     groupId = writeGroupData(groupN, description, maxSlots, uniqName, longitude, latitude, location);
     updateJoinMeUserData(uniqName, isGL, groupId);
