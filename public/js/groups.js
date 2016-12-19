@@ -60,17 +60,19 @@ $(document).ready(function(){
       }
       console.log(users);
       count = count - 1;
-
-      firebase.database().ref('Groups/' + grpID).update({
-        SlotsFilled : count,
-        Users: users
-      });
-
-      firebase.database().ref('Users/' + uniqName).update({
-        groupId: null,
-        classNum: null
-      });
-
+      
+      if (count <= 0)
+      {
+        firebase.database.ref('Groups/' + grpID).remove();
+      }
+      else
+      {
+        firebase.database().ref('Groups/' + grpID).update({
+          SlotsFilled : count,
+          Users: users
+        });
+      }
+      firebase.database().ref('Users/' + uniqName).remove();
     });
     window.location.href = "https://studdy-db032.firebaseapp.com/search.html";
   });
