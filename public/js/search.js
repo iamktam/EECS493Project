@@ -1,4 +1,3 @@
-var uniqName = getUniquename();
 var app = angular.module('493Search', []);
 
 app.controller('searchResult',[ '$scope', '$http', function($scope, $http) {
@@ -154,9 +153,8 @@ app.controller('searchResult',[ '$scope', '$http', function($scope, $http) {
         $scope.courseNum = x.SubjectCode + x.CatalogNumber;
     };
 
-    $scope.join = function (x) {
-        writeUserData(uniqName, false, null, $scope.courseNum);
-        console.log("Data (" + $scope.courseNum + ") written to DB.");
+    $scope.join = function (joinMe) {
+        writeUserData(getUniquename(), -1, $scope.courseNum);
         if (joinMe){
           location.href="https://studdy-db032.firebaseapp.com/joinme.html";
         }else {

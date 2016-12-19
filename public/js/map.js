@@ -40,7 +40,6 @@ function newMarker(map, lati, longi, message, id) {
 
 function joinGroup(id) {
   var uniqname = getUniquename();
-  console.log(uniqname);
   addGroupUser(id, uniqname);
 }
 

@@ -1,10 +1,3 @@
-//var uniqName = getCookie("uniqname");
-//console.log(uniqName);
-var uniqName = "kktam";
-
-console.log(uniqName);
-
-//uniqName = uniqName.substring(0, uniqName.indexOf("@"));
 var grpID;
 var grpName;
 var count = 1;
@@ -12,24 +5,6 @@ var maxSlots;
 var slotsFilled;
 var interval = null;
 var location;
-
-  //Retrieve the group id given a uniqName from cookies
-firebase.database().ref('Users/' + uniqName).once('value').then(function(snapshot){
-  grpID = snapshot.val().groupId;
-
-  //Retrieve groupName, maxslots, leader from the group id
-  firebase.database().ref('Groups/' + grpID).once('value').then(function(snapshot){
-    grpName = snapshot.val().GroupName;
-    maxSlots = snapshot.val().MaxSlots;
-    //location = snapshot.val().Located;
-
-    $('#grpName').append(grpName);
-    //$('#locInput').append(location);
-    $('#maxs').append(maxSlots);
-    $('.memsList').append('<h3>' + uniqName + '</h3>');
-  })
-})
-
 
 $(document).ready(function(){
   setInterval(function(){
@@ -45,16 +20,16 @@ $(document).ready(function(){
         $('.memsList').append('<h3>' + members[i] + '</h3>');
 
       }
-  })
+    });
   }, 5000);
 
   $('#leaveGrp').click(function(){
     console.log("Leaving Group");
     console.log(grpID);
-    console.log(uniqName);
+    console.log(getUniquename());
     firebase.database().ref('Groups/' + grpID + '/Users').once('value').then(function(snapshot) {
       var users = snapshot.val();
-      var index = users.indexOf(uniqName);
+      var index = users.indexOf(getUniquename());
       if (index > -1) {
         users.splice(index, 1);
       }
@@ -66,7 +41,7 @@ $(document).ready(function(){
         Users: users
       });
 
-      firebase.database().ref('Users/' + uniqName).update({
+      firebase.database().ref('Users/' + getUniquename()).update({
         groupId: null,
         classNum: null
       });
@@ -74,4 +49,24 @@ $(document).ready(function(){
     });
     window.location.href = "https://studdy-db032.firebaseapp.com/search.html";
   });
-})
+  console.log(getUniquename());
+  //Retrieve the group id given a getUniquename() from cookies
+  setTimeout(function() {
+    firebase.database().ref('Users/' + getUniquename()).once('value').then(function(snapshot){
+      console.log(snapshot.val());
+      grpID = snapshot.val().groupId;
+
+      //Retrieve groupName, maxslots, leader from the group id
+      firebase.database().ref('Groups/' + grpID).once('value').then(function(snapshot){
+        grpName = snapshot.val().GroupName;
+        maxSlots = snapshot.val().MaxSlots;
+        //location = snapshot.val().Located;
+
+        $('#grpName').append(grpName);
+        //$('#locInput').append(location);
+        $('#maxs').append(maxSlots);
+        $('.memsList').append('<h3>' + getUniquename() + '</h3>');
+      });
+    });
+  }, 500);
+});

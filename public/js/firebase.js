@@ -61,7 +61,6 @@ function addGroupUser(id, user) {
 
     var slots = group.SlotsFilled+1;
     curUsers.push(user);
-    console.log(curUsers);
     firebase.database().ref('Groups/' + id).update({
       Users: curUsers,
       SlotsFilled: slots

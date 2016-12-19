@@ -1,4 +1,3 @@
-var uniqName = getUniquename();
 var app = angular.module('JoinMe', []);
 var ACCESS_TOKEN = 'c933b2f342a41f349e92b5c1fccf86fe';
 var user_long;
@@ -74,12 +73,12 @@ app.controller('shareBtn', [ '$scope', '$http', function($scope, $http)
     var longitude = parseFloat($scope.building.LON);
     var latitude = parseFloat($scope.building.LAT);
     var maxSlots = parseInt($('#numSlots'.concat($scope.building.ID)).val());
-    firebase.database().ref('Users/' + uniqName).once('value').then(function(snapshot){
+    firebase.database().ref('Users/' + getUniquename()).once('value').then(function(snapshot){
       cID = snapshot.val().classNum;
-      console.log(uniqName);
+      console.log(getUniquename());
       console.log(cID);
-      groupId = writeGroupData(groupN, description, maxSlots, uniqName, longitude, latitude, location, cID);
-      updateJoinMeUserData(uniqName, groupId);
+      groupId = writeGroupData(groupN, description, maxSlots, getUniquename(), longitude, latitude, location, cID);
+      updateJoinMeUserData(getUniquename(), groupId);
       window.location.href = "https://studdy-db032.firebaseapp.com/groups.html";
     })
   }
