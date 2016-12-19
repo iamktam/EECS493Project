@@ -4,6 +4,7 @@
 
 function getUniquename() {
     var curUser = firebase.auth().currentUser;
+    console.log(curUser);
     if (!curUser) {
         return false;
     }
@@ -19,7 +20,6 @@ function isUmich() {
     var curUser = firebase.auth().currentUser;
     var curEmail = curUser.email;
     var domain = curEmail.replace(/.*@/, "");
-    console.log(domain);
     if (domain == "umich.edu") {
         return true;
     }

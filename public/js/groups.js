@@ -1,6 +1,8 @@
 //var uniqName = getCookie("uniqname");
 //console.log(uniqName);
-var uniqName = getUniquename();
+var uniqName = "kktam";
+
+console.log(uniqName);
 
 //uniqName = uniqName.substring(0, uniqName.indexOf("@"));
 var grpID;
@@ -25,7 +27,6 @@ firebase.database().ref('Users/' + uniqName).once('value').then(function(snapsho
     //$('#locInput').append(location);
     $('#maxs').append(maxSlots);
     $('.memsList').append('<h3>' + uniqName + '</h3>');
-    $('#leaveGrp').style.visibility = "visible";
   })
 })
 
@@ -49,12 +50,26 @@ $(document).ready(function(){
 
   $('#leaveGrp').click(function(){
     console.log("Leaving Group");
-    firebase.database().ref('Groups/Users/' + uniqName).remove();
-    
-    count = count - 1;
+    console.log(grpID);
+    console.log(uniqName);
+    firebase.database().ref('Groups/' + grpID + '/Users').once('value').then(function(snapshot) {
+      var users = snapshot.val();
+      var index = users.indexOf(uniqName);
+      if (index > -1) {
+        users.splice(index, 1);
+      }
+      console.log(users);
+      count = count - 1;
 
-    firebase.database().ref('Groups/' + grpID).update({
-      SlotsFilled : count
+      firebase.database().ref('Groups/' + grpID).update({
+        SlotsFilled : count,
+        Users: users
+      });
+
+      firebase.database().ref('Users/' + uniqName).update({
+        groupId: null
+      });
+
     });
     window.location.href = "https://studdy-db032.firebaseapp.com/search.html";
   });

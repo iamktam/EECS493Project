@@ -30,7 +30,8 @@
       <h1 id="sidebarHeader">Pick a location:</h1>
       <hr>
       <div class="groupContainer" ng-repeat="group in groups" ng-click="focusMarker(group)">
-        Location: {{ group.Description }}<br>
+        Name: {{ group.GroupName }}<br>
+        Location: {{ group.Located }}, {{ group.Description }}<br>
         Slots Open: {{ group.SlotsFilled }} / {{ group.MaxSlots }}<br>
       </div>
     </div>

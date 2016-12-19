@@ -27,11 +27,20 @@ function newMarker(map, lati, longi, message, id) {
     }
     infowindow.open(map, marker);
   });
+
+  marker.addListener('click', function() {
+    for (var i=0;i<infoWindows.length;i++) {
+       infoWindows[i].close();
+    }
+    infowindow.open(map, marker);
+  });
+
   markerList[id] = marker;
 }
 
 function joinGroup(id) {
   var uniqname = getUniquename();
+  console.log(uniqname);
   addGroupUser(id, uniqname);
 }
 
