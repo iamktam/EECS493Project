@@ -154,11 +154,7 @@ app.controller('searchResult',[ '$scope', '$http', function($scope, $http) {
     };
 
     $scope.join = function (joinMe) {
-        writeUserData(getUniquename(), -1, $scope.courseNum);
-        if (joinMe){
-          location.href="https://studdy-db032.firebaseapp.com/joinme.html";
-        }else {
-          location.href="https://studdy-db032.firebaseapp.com/map.html";
-        }
+
+      writeUserData(getUniquename(), -1, $scope.courseNum, joinMe);
     }
 }]);

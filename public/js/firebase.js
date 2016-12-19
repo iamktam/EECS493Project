@@ -10,10 +10,16 @@ var config = {
 firebase.initializeApp(config);
 
 //Initializes a user (not for updating)
-function writeUserData(uniqName, groupId, classNum) {
+function writeUserData(uniqName, groupId, classNum, joinMe) {
   firebase.database().ref('Users/' + uniqName).set({
    	groupId : groupId,
    	classNum: classNum
+  }).then(function() {
+      if (joinMe) {
+        location.href="https://studdy-db032.firebaseapp.com/joinme.html";
+      } else {
+        location.href="https://studdy-db032.firebaseapp.com/map.html";
+      }
   });
 }
 
