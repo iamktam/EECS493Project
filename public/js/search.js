@@ -154,7 +154,6 @@ app.controller('searchResult',[ '$scope', '$http', function($scope, $http) {
     };
 
     $scope.join = function (joinMe) {
-
       writeUserData(getUniquename(), -1, $scope.courseNum, joinMe);
     }
 }]);
