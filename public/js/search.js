@@ -157,7 +157,7 @@ app.controller('searchResult',[ '$scope', '$http', function($scope, $http) {
     $scope.join = function (x) {
         writeUserData(uniqName, false, null, $scope.courseNum);
         console.log("Data (" + $scope.courseNum + ") written to DB.");
-        if (joinMe){
+        if (x) {
           location.href="https://studdy-db032.firebaseapp.com/joinme.html";
         }else {
           location.href="https://studdy-db032.firebaseapp.com/map.html";
