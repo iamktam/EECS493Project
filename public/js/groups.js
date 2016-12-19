@@ -67,7 +67,8 @@ $(document).ready(function(){
       });
 
       firebase.database().ref('Users/' + uniqName).update({
-        groupId: null
+        groupId: null,
+        classNum: null
       });
 
     });
