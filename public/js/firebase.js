@@ -11,7 +11,8 @@ firebase.initializeApp(config);
 
 //Initializes a user (not for updating)
 function writeUserData(uniqName, groupId, classNum, joinMe) {
-  firebase.database().ref('Users/' + uniqName).set({
+  var userRef = firebase.database().ref('Users/' + uniqName);
+  userRef.set({
    	groupId : groupId,
    	classNum: classNum
   }).then(function() {

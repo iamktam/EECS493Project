@@ -1,10 +1,7 @@
 var grpID;
-var grpName;
 var count = 1;
-var maxSlots;
 var slotsFilled;
 var interval = null;
-var location;
 
 $(document).ready(function(){
   setInterval(function(){
@@ -60,12 +57,12 @@ $(document).ready(function(){
 
       //Retrieve groupName, maxslots, leader from the group id
       firebase.database().ref('Groups/' + grpID).once('value').then(function(snapshot){
-        grpName = snapshot.val().GroupName;
-        maxSlots = snapshot.val().MaxSlots;
-        //location = snapshot.val().Located;
+        var grpName = snapshot.val().GroupName;
+        var maxSlots = snapshot.val().MaxSlots;
+        var location = snapshot.val().Located;
 
         $('#grpName').append(grpName);
-        //$('#locInput').append(location);
+        $('#loci').append(location);
         $('#maxs').append(maxSlots);
         $('.memsList').append('<h3>' + getUniquename() + '</h3>');
       });

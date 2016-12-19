@@ -80,6 +80,6 @@ app.controller('shareBtn', [ '$scope', '$http', function($scope, $http)
       groupId = writeGroupData(groupN, description, maxSlots, getUniquename(), longitude, latitude, location, cID);
       updateJoinMeUserData(getUniquename(), groupId);
       window.location.href = "https://studdy-db032.firebaseapp.com/groups.html";
-    })
+    });
   }
 }]);
