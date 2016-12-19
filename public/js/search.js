@@ -121,7 +121,7 @@ app.controller('searchResult',[ '$scope', '$http', function($scope, $http) {
             console.log(response.data);
             $scope.classInfo[i] = response.data.getSOCSectionListByNbrResponse.ClassOffered;
             i++;
-            if ((i < 1) || (i < $scope.classList.length)) {
+            if ((i < 50) || (i < $scope.classList.length)) {
                 //$scope.getClassInfo(i);
             }
         });
